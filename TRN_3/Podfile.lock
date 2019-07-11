@@ -1,0 +1,30 @@
+PODS:
+  - FBRetainCycleDetector (0.1.4)
+  - Masonry (1.1.0)
+  - MLeaksFinder (1.0.0):
+    - FBRetainCycleDetector
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+
+DEPENDENCIES:
+  - Masonry
+  - MLeaksFinder
+  - YYKit (~> 1.0.9)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FBRetainCycleDetector
+    - Masonry
+    - MLeaksFinder
+    - YYKit
+
+SPEC CHECKSUMS:
+  FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+
+PODFILE CHECKSUM: d4a40a538600f9a8f0ce64f0dd91470b3afb6f41
+
+COCOAPODS: 1.6.0
