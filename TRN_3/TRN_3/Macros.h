@@ -12,4 +12,6 @@
 static NSString *const AddressBookUI = @"1.3.1_1 Address Book UI框架";
 static NSString *const iAd = @"1.3.1_2 iAd框架";
 
+#define k_SystemVersionValue (([UIDevice currentDevice].systemVersion).doubleValue)
+
 #endif /* Macros_h */

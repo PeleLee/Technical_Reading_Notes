@@ -3,4 +3,5 @@ target :’TRN_3’ do
 pod 'Masonry'
 pod 'MLeaksFinder'
 pod 'YYKit', '~> 1.0.9'
+pod 'SVProgressHUD', '~> 2.2.1’
 end

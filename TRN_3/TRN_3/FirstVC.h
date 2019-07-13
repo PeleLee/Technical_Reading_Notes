@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FirstVC : UIViewController
 
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *titleStr;
 
 @end
 

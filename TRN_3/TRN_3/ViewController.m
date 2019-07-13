@@ -56,7 +56,7 @@ static NSString *const cellId = @"cellIdentifier";
     NSString *title = self.dataArray[indexPath.row];
     if ([self.dataArray containsObject:title]) {
         FirstVC *firstVC = [FirstVC new];
-        firstVC.title = title;
+        firstVC.titleStr = title;
         [self.navigationController pushViewController:firstVC animated:YES];
     }
 }

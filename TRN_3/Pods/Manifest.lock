@@ -3,6 +3,7 @@ PODS:
   - Masonry (1.1.0)
   - MLeaksFinder (1.0.0):
     - FBRetainCycleDetector
+  - SVProgressHUD (2.2.5)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -10,6 +11,7 @@ PODS:
 DEPENDENCIES:
   - Masonry
   - MLeaksFinder
+  - SVProgressHUD (~> 2.2.1)
   - YYKit (~> 1.0.9)
 
 SPEC REPOS:
@@ -17,14 +19,16 @@ SPEC REPOS:
     - FBRetainCycleDetector
     - Masonry
     - MLeaksFinder
+    - SVProgressHUD
     - YYKit
 
 SPEC CHECKSUMS:
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: d4a40a538600f9a8f0ce64f0dd91470b3afb6f41
+PODFILE CHECKSUM: 02e81ea355af52cf6c70d356a69427de26400015
 
 COCOAPODS: 1.6.0
