@@ -42,6 +42,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSContactsUsageDescription</key>
-	<string>是否允许此访问你的通讯录？</string>
+	<string>是否允许访问你的通讯录？</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>请求访问日历？</string>
 </dict>
 </plist>

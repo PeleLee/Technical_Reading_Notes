@@ -27,6 +27,7 @@ static NSString *const cellId = @"cellIdentifier";
     
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     [self.dataArray addObject:AddressBookUI];
+    [self.dataArray addObject:EventKitUI];
     [self.dataArray addObject:iAd];
     
     self.myTV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
