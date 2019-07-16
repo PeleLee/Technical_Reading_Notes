@@ -18,6 +18,8 @@
 #import <Masonry/View+MASAdditions.h>
 #import <SVProgressHUD.h>
 
+static NSString *const sogaCalendar = @"Soga的事项日历";
+
 @interface FirstVC ()<CNContactPickerDelegate, EKCalendarChooserDelegate>
 
 //@property (nonatomic, strong) ADBannerView *adView;
@@ -48,20 +50,30 @@
 #pragma mark - Event Kit UI
 
 - (void)eventKitUITest {
-    UIButton *btn1 = [self createMyButton];
-    [btn1 setTitle:@"requestAccessToEntityType:completion:" forState:UIControlStateNormal];
-    [btn1 addTarget:self action:@selector(testRequestAccessToEntityTypeCompletion) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn1];
+    UIButton *btn0 = [self createMyButton];
+    [btn0 setTitle:@"获取系统日历的所有EKSource对象" forState:UIControlStateNormal];
+    [btn0 addTarget:self action:@selector(getAllEKSourceObject) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn0];
     
-    [btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+    [btn0 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@20);
         make.top.equalTo(@120);
     }];
     
+    UIButton *btn1 = [self createMyButton];
+    [btn1 setTitle:@"获取系统日历中所有EKCalendar对象" forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(getAllEKCalendarObject) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    
+    [btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@20);
+        make.top.equalTo(btn0.mas_bottom).offset(20);
+    }];
+    
     UIButton *btn2 = [self createMyButton];
     btn2.backgroundColor = [UIColor yellowColor];
-    [btn2 setTitle:@"calendarForEntityType:eventStore:创建本地日历,显示在系统日历App中" forState:UIControlStateNormal];
-    [btn2 addTarget:self action:@selector(createNewCalendar) forControlEvents:UIControlEventTouchUpInside];
+    [btn2 setTitle:@"通过创建EKCalendar对象,显示在系统日历App中" forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(createEKCalendarObject) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn2];
     
     [btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -71,7 +83,7 @@
     }];
     
     UIButton *btn3 = [self createMyButton];
-    [btn3 setTitle:@"查询日历事件" forState:UIControlStateNormal];
+    [btn3 setTitle:@"查询日历事项" forState:UIControlStateNormal];
     [btn3 addTarget:self action:@selector(queryEvent) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn3];
     
@@ -79,11 +91,46 @@
         make.left.equalTo(btn1);
         make.top.equalTo(btn2.mas_bottom).offset(20);
     }];
+    
+    UIButton *btn4 = [self createMyButton];
+    [btn4 setTitle:@"修改事项日历" forState:UIControlStateNormal];
+    [btn4 addTarget:self action:@selector(changeCalendareEvent) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn4];
+    
+    [btn4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(btn1);
+        make.top.equalTo(btn3.mas_bottom).offset(20);
+    }];
+}
+
+- (void)changeCalendareEvent {
+    EKCalendar *calen = nil;
+    for (EKCalendar *cal in [self.myEventStore calendarsForEntityType:EKEntityTypeEvent]) {
+        if ([cal.title isEqualToString:sogaCalendar]) {
+            calen = cal;
+            break;
+        }
+    }
+    EKEvent *event = [EKEvent eventWithEventStore:self.myEventStore];
+    event.title = @"从应用创建的事件";
+    event.startDate = [NSDate date];
+    event.calendar = calen;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *oneMonthFromNowComponents = [[NSDateComponents alloc] init];
+    oneMonthFromNowComponents.hour += 1;
+    NSDate *endDate = [calendar dateByAddingComponents:oneMonthFromNowComponents toDate:[NSDate date] options:0];
+    event.endDate = endDate;
+    event.notes = @"备注";
+    [event setAllDay:NO];
+    
+    NSError *error = nil;
+    [self.myEventStore saveEvent:event span:EKSpanThisEvent commit:YES error:&error];
+    NSLog(@"%@", error);
 }
 
 - (void)queryEvent {
     for (EKCalendar *cal in [self.myEventStore calendarsForEntityType:EKEntityTypeEvent]) {
-        if ([cal.title isEqualToString:@"Soga的事项日历"]) {
+        if ([cal.title isEqualToString:sogaCalendar]) {
             NSCalendar *calendar = [NSCalendar currentCalendar];
             
             NSDateComponents *oneMonthFromNowComponents = [NSDateComponents new];
@@ -100,18 +147,17 @@
     }
 }
 
-- (void)createNewCalendar {
-    EKEventStore *eventStore = [EKEventStore new];
-    EKCalendar *calendar = [EKCalendar calendarForEntityType:EKEntityTypeEvent eventStore:eventStore];
-    for (EKSource *source in eventStore.sources) {
+- (void)createEKCalendarObject {
+    EKCalendar *calendar = [EKCalendar calendarForEntityType:EKEntityTypeEvent eventStore:self.myEventStore];
+    for (EKSource *source in self.myEventStore.sources) {
         if (source.sourceType == EKSourceTypeLocal) {
             calendar.source = source;
         }
     }
-    calendar.title = @"Soga的事项日历";
+    calendar.title = sogaCalendar;
     calendar.CGColor = [UIColor yellowColor].CGColor;
     NSError *error;
-    [eventStore saveCalendar:calendar commit:YES error:&error];
+    [self.myEventStore saveCalendar:calendar commit:YES error:&error];
     if (error) {
         NSLog(@"%@", error.localizedDescription);
     }
@@ -120,29 +166,35 @@
     }
 }
 
-- (void)testRequestAccessToEntityTypeCompletion {
-    EKEventStore *eventStore = [EKEventStore new];
+- (void)getAllEKCalendarObject {
     // 访问权限
-    [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) {
+    __weak typeof(self) weakSelf = self;
+    [self.myEventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) {
         if (!granted) {
             NSLog(@"拒绝访问");
         }
         else {
-            NSArray *calendars = [eventStore calendarsForEntityType:EKEntityTypeEvent];
+            NSArray *calendars = [weakSelf.myEventStore calendarsForEntityType:EKEntityTypeEvent];
             for (EKCalendar *calendar in calendars) {
-                NSLog(@"%@", calendar);
+                NSLog(@"EKCalendar Object:%@", calendar);
+                NSLog(@"EKSource Object:%@", calendar.source);
             }
-            /*EKCalendarChooser *ekCalendarChooser = [[EKCalendarChooser alloc]
-                                                    initWithSelectionStyle:EKCalendarChooserSelectionStyleSingle
-                                                    displayStyle:EKCalendarChooserDisplayAllCalendars
-                                                    eventStore:eventStore];
-            ekCalendarChooser.showsDoneButton = YES;
-            ekCalendarChooser.showsCancelButton = YES;
-            ekCalendarChooser.delegate = self;
-            [self.navigationController pushViewController:ekCalendarChooser animated:YES];*/
         }
     }];
     
+}
+
+- (void)getAllEKSourceObject {
+    [self.myEventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) {
+        if (!granted) {
+            NSLog(@"拒绝访问");
+        }
+        else {
+            for (EKSource *ekSource in self.myEventStore.sources) {
+                NSLog(@"%@", ekSource);
+            }
+        }
+    }];
 }
 
 - (void)calendarChooserSelectionDidChange:(EKCalendarChooser *)calendarChooser {
