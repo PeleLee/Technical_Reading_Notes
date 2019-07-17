@@ -34,6 +34,7 @@
 		9B46003622D785B90066B7B1 /* FirstVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstVC.h; sourceTree = "<group>"; };
 		9B46003722D785B90066B7B1 /* FirstVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstVC.m; sourceTree = "<group>"; };
 		9B46003922D786710066B7B1 /* Macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		9B7D0FC822DF73CE00C6E46B /* TRN_3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TRN_3.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +87,7 @@
 		9B46001F22D7807F0066B7B1 /* TRN_3 */ = {
 			isa = PBXGroup;
 			children = (
+				9B7D0FC822DF73CE00C6E46B /* TRN_3.entitlements */,
 				9B46002022D7807F0066B7B1 /* AppDelegate.h */,
 				9B46002122D7807F0066B7B1 /* AppDelegate.m */,
 				9B46003922D786710066B7B1 /* Macros.h */,
@@ -135,6 +137,11 @@
 				TargetAttributes = {
 					9B46001C22D7807F0066B7B1 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -367,7 +374,9 @@
 			baseConfigurationReference = 2ADEE5858F9E84E1C9877F3D /* Pods-TRN_3.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TRN_3/TRN_3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V9JZ5W9X68;
 				INFOPLIST_FILE = TRN_3/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -384,7 +393,9 @@
 			baseConfigurationReference = 2B97D82624E47B1D45AD02A4 /* Pods-TRN_3.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TRN_3/TRN_3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V9JZ5W9X68;
 				INFOPLIST_FILE = TRN_3/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

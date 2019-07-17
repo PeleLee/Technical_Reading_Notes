@@ -45,5 +45,7 @@
 	<string>是否允许访问你的通讯录？</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>请求访问日历？</string>
+	<key>NSLocalizedDescription</key>
+	<string></string>
 </dict>
 </plist>

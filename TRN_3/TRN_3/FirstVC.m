@@ -72,7 +72,7 @@ static NSString *const sogaCalendar = @"Soga的事项日历";
     
     UIButton *btn2 = [self createMyButton];
     btn2.backgroundColor = [UIColor yellowColor];
-    [btn2 setTitle:@"通过创建EKCalendar对象,显示在系统日历App中" forState:UIControlStateNormal];
+    [btn2 setTitle:@"通过EKSource创建EKCalendar对象,显示在系统日历App中" forState:UIControlStateNormal];
     [btn2 addTarget:self action:@selector(createEKCalendarObject) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn2];
     
@@ -83,7 +83,7 @@ static NSString *const sogaCalendar = @"Soga的事项日历";
     }];
     
     UIButton *btn3 = [self createMyButton];
-    [btn3 setTitle:@"查询日历事项" forState:UIControlStateNormal];
+    [btn3 setTitle:@"通过NSPredicate查询所有EKEvent" forState:UIControlStateNormal];
     [btn3 addTarget:self action:@selector(queryEvent) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn3];
     
@@ -93,7 +93,7 @@ static NSString *const sogaCalendar = @"Soga的事项日历";
     }];
     
     UIButton *btn4 = [self createMyButton];
-    [btn4 setTitle:@"修改事项日历" forState:UIControlStateNormal];
+    [btn4 setTitle:@"创建或修改EKEvent" forState:UIControlStateNormal];
     [btn4 addTarget:self action:@selector(changeCalendareEvent) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn4];
     
@@ -101,6 +101,36 @@ static NSString *const sogaCalendar = @"Soga的事项日历";
         make.left.equalTo(btn1);
         make.top.equalTo(btn3.mas_bottom).offset(20);
     }];
+    
+    UIButton *btn5 = [self createMyButton];
+    [btn5 setTitle:@"创建EKReminder对象" forState:UIControlStateNormal];
+    [btn5 addTarget:self action:@selector(createEKReminderObject) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn5];
+    
+    [btn5 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(btn0);
+        make.top.equalTo(btn4.mas_bottom).offset(20);
+    }];
+}
+
+- (void)createEKReminderObject {
+    EKReminder *reminder = [EKReminder reminderWithEventStore:self.myEventStore];
+    reminder.title = sogaCalendar;
+    reminder.notes = @"soga soga";
+    for (EKCalendar *cal in [self.myEventStore calendarsForEntityType:EKEntityTypeEvent]) {
+        if ([cal.title isEqualToString:@"自定义"]) {
+            reminder.calendar = cal;
+            break;
+        }
+    }
+    NSError *error = nil;
+    [self.myEventStore saveReminder:reminder commit:YES error:&error];
+    if (error) {
+        [SVProgressHUD showErrorWithStatus:@"需设置iCloud账号"];
+    }
+    else {
+        [SVProgressHUD showSuccessWithStatus:@"EKReminder创建成功"];
+    }
 }
 
 - (void)changeCalendareEvent {
@@ -125,25 +155,26 @@ static NSString *const sogaCalendar = @"Soga的事项日历";
     
     NSError *error = nil;
     [self.myEventStore saveEvent:event span:EKSpanThisEvent commit:YES error:&error];
+    if (!error) {
+        [SVProgressHUD showSuccessWithStatus:@"创建EKEvent成功，可在系统日历中查看"];
+    }
     NSLog(@"%@", error);
 }
 
 - (void)queryEvent {
     for (EKCalendar *cal in [self.myEventStore calendarsForEntityType:EKEntityTypeEvent]) {
-        if ([cal.title isEqualToString:sogaCalendar]) {
-            NSCalendar *calendar = [NSCalendar currentCalendar];
-            
-            NSDateComponents *oneMonthFromNowComponents = [NSDateComponents new];
-            oneMonthFromNowComponents.month = 1;
-            NSDate *oneMonthFromNow = [calendar dateByAddingComponents:oneMonthFromNowComponents
-                                                                toDate:[NSDate date]
-                                                               options:0];
-            
-            NSPredicate *predicate = [self.myEventStore predicateForEventsWithStartDate:[NSDate date] endDate:oneMonthFromNow calendars:@[cal]];
-            
-            NSArray *eventArray = [self.myEventStore eventsMatchingPredicate:predicate];
-            NSLog(@"%@", eventArray);
-        }
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        
+        NSDateComponents *oneMonthFromNowComponents = [NSDateComponents new];
+        oneMonthFromNowComponents.month = 1;
+        NSDate *oneMonthFromNow = [calendar dateByAddingComponents:oneMonthFromNowComponents
+                                                            toDate:[NSDate date]
+                                                           options:0];
+        
+        NSPredicate *predicate = [self.myEventStore predicateForEventsWithStartDate:[NSDate date] endDate:oneMonthFromNow calendars:@[cal]];
+        
+        NSArray *eventArray = [self.myEventStore eventsMatchingPredicate:predicate];
+        NSLog(@"%@", eventArray);
     }
 }
 
