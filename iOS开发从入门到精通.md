@@ -46,6 +46,72 @@ Core OS
 * 标准系统视图控制器
 ##### 2.Cocoa Touch层包含的框架
 * Address Book UI 框架:联系人页面
-* Event Kit UI 框架
+* Event Kit UI 框架：用户日程、日历
 * Game Kit 框架
 * iAd 框架:iOS 10已废弃
+* Map Kit框架
+* Message UI框架
+* UIKit框架
+### 1.3.2 媒体层
+* iOS高层框架：快速创建
+* iOS底层框架：完成特定需求的创建
+##### 1.媒体层高级属性
+* 图形、视频、音频
+##### 2.媒体层包含的框架（常用）
+* AVFoundation 框架
+* Core Audio 框架
+* Core Graphics 框架
+* Core Text 框架
+* Core Video 框架
+* Image I/O 框架
+* 媒体播放器框架
+* OpenGL ES 框架
+* OpenAL 框架
+* Quartz Core 框架
+* 资产库框架
+### 1.3.3 Core Services 层
+提供基础服务，是系统很多部分赖以构建的基础
+##### 1.Core Services层高级特性
+* 快对象
+* Grand Gentral Dispatch---GCD
+* 应用内购买
+* 定位服务
+* SQLite库
+* XML支持：NSXMLParser类解析元素
+##### 2.Core Services层包含的框架
+* AddressBook 框架
+* CFNetwork框架
+* Core Data框架
+* Core Foundation框架
+* Core Location框架
+* Core Media框架
+* Core Telephony框架
+* Event Kit框架
+* Foundation框架
+* Mobile Core Services框架
+* Quick Look框架
+* Store Kit框架
+* System Configuration框架
+### 1.3.4 Core OS层
+直接处理安全事务或和某个外设通信时，必须用到该框架。
+* Accelerate框架
+* External Accessory框架
+* Security框架
+* System框架
+## 1.4 Objective-C概述
+* Smalltalk特性
+## 1.5 比较iOS和macOS
+### 1.5.1 UIKit与AppKit的对比
+### 1.5.2 Foundation框架的差异
+### 1.5.3 其他框架的改变
+## 1.6 iOS开发环境和工具
+### 1.6.1 了解Xcode
+### 1.6.2 Xcode导航面板
+* 项目导航
+* 符号导航：以类、方法、属性的形式来显示项目中所有的类、方法和属性，方便快速定位
+* 搜索导航
+* 问题导航
+* 测试导航：白盒测试结果
+* 调试导航
+* 断点导航
+* 日志导航
