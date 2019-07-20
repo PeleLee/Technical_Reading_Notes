@@ -45,6 +45,48 @@ static NSString *const sogaCalendar = @"Soga的事项日历";
     else if ([self.titleStr isEqualToString:AddressBookUI]) {
         [self addressBookUITest];
     }
+    else if ([self.titleStr isEqualToString:InputFormat]) {
+        [self test_inputFormat];
+    }
+}
+
+#pragma mark - InputFormat
+
+- (void)test_inputFormat {
+    int a = 32;
+    NSLog(@"==%d==", a);
+    
+    NSLog(@"==%9d==", a);
+    
+    NSLog(@"==%-9d==", a);
+    
+    NSLog(@"==%o==", a);
+    
+    NSLog(@"==%x==", a);
+    
+    long b = 14;
+    NSLog(@"%ld", b);
+    
+    NSLog(@"%lx", b);
+    
+    double dl = 5.12;
+    NSLog(@"==%e==", dl);
+    
+    NSLog(@"==%g==", dl);
+    
+    NSLog(@"==%9f==", dl);
+    
+    NSLog(@"==%9.4f==", dl);
+    
+    NSLog(@"==%lf==", dl);
+    
+    NSLog(@"==%le==", dl);
+    
+    NSLog(@"==%lg==", dl);
+    
+    NSLog(@"==%9lf==", dl);
+    
+    NSLog(@"==%9.4lf==", dl);
 }
 
 #pragma mark - Event Kit UI

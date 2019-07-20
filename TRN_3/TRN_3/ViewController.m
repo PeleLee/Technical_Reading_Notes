@@ -29,6 +29,7 @@ static NSString *const cellId = @"cellIdentifier";
     [self.dataArray addObject:AddressBookUI];
     [self.dataArray addObject:EventKitUI];
     [self.dataArray addObject:iAd];
+    [self.dataArray addObject:InputFormat];
     
     self.myTV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.myTV.delegate = self;

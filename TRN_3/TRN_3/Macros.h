@@ -12,6 +12,7 @@
 static NSString *const AddressBookUI = @"1.3.1_1 Address Book UI框架";
 static NSString *const EventKitUI = @"1.3.1_2 Event Kit框架";
 static NSString *const iAd = @"1.3.1_3 iAd框架";
+static NSString *const InputFormat = @"2.2.2_1 输出格式字符";
 
 #define k_SystemVersionValue (([UIDevice currentDevice].systemVersion).doubleValue)
 
