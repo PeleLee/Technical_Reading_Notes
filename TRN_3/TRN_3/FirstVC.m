@@ -48,6 +48,50 @@ static NSString *const sogaCalendar = @"Soga的事项日历";
     else if ([self.titleStr isEqualToString:InputFormat]) {
         [self test_inputFormat];
     }
+    else if ([self.titleStr isEqualToString:BOOLOutOfBounds]) {
+        [self test_boolOutBounds];
+    }
+    else if ([self.titleStr isEqualToString:TypeMandatoryConversion]) {
+        [self test_typeMandatoryConversion];
+    }
+}
+
+#pragma mark - 强制类型转换
+
+- (void)test_typeMandatoryConversion {
+    NSInteger a = 10;
+    NSInteger b = 3;
+    
+    CGFloat c = a/b;
+    CGFloat d = (CGFloat)a/b;
+    CGFloat e = (CGFloat)(a/b);
+    
+    NSLog(@"未强转: %f", c);
+    NSLog(@"正确强转: %f", d);
+    NSLog(@"错误强转: %f", e);
+    
+    float f1 = a/b;
+    float f2 = (float)a/b;
+    float f3 = (float)(a/b);
+    NSLog(@"未强转: %g", f1);
+    NSLog(@"正确强转: %g", f2);
+    NSLog(@"错误强转: %g", f3);
+}
+
+#pragma mark - BOOL越界问题
+
+- (void)test_boolOutBounds {
+    NSLog(@"可能是操作系统位数不同，实际输出与书中输出不一致。");
+    BOOL a = 256;
+    NSLog(@"a: %d", a);
+//    if (a) {
+//        NSLog(@"未越界");
+//    }
+    BOOL b = 768;
+    NSLog(@"b: %d", b);
+//    if (b) {
+//        NSLog(@"越界");
+//    }
 }
 
 #pragma mark - InputFormat
