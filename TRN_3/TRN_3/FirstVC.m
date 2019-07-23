@@ -54,6 +54,19 @@ static NSString *const sogaCalendar = @"Soga的事项日历";
     else if ([self.titleStr isEqualToString:TypeMandatoryConversion]) {
         [self test_typeMandatoryConversion];
     }
+    else if ([self.titleStr isEqualToString:CommaOperator]) {
+        [self test_commaOperator];
+    }
+}
+
+#pragma mark - 逗号运算符
+
+- (void)test_commaOperator {
+    int a = 2;
+    a = (a*3, 5 < 8);
+    NSLog(@"a: %d", a);
+    int x = (a = 3, a = 4, a = 6, a = 9);
+    NSLog(@"b: %d, x: %d", a, x);
 }
 
 #pragma mark - 强制类型转换
