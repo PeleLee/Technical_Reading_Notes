@@ -20,6 +20,10 @@
 
 static NSString *const sogaCalendar = @"Soga的事项日历";
 
+#define PASTE(n) "zhang"#n
+#define XNAME(n) x##n
+#define PRINT_XN(n) printf("x"#n"=%d\n", x##n);
+
 @interface FirstVC ()<CNContactPickerDelegate, EKCalendarChooserDelegate>
 
 //@property (nonatomic, strong) ADBannerView *adView;
@@ -57,6 +61,19 @@ static NSString *const sogaCalendar = @"Soga的事项日历";
     else if ([self.titleStr isEqualToString:CommaOperator]) {
         [self test_commaOperator];
     }
+    else if ([self.titleStr isEqualToString:MacrosAbout]) {
+        [self test_macros_1];
+    }
+}
+
+#pragma mark - 宏定义中的#运算符
+
+- (void)test_macros_1 {
+    NSLog(@"%s", PASTE(san));
+    
+    int XNAME(1) = 14;
+    int XNAME(2) = 20;
+    PRINT_XN(1)
 }
 
 #pragma mark - 逗号运算符

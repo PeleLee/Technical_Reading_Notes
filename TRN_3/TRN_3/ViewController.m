@@ -33,6 +33,7 @@ static NSString *const cellId = @"cellIdentifier";
     [self.dataArray addObject:BOOLOutOfBounds];
     [self.dataArray addObject:TypeMandatoryConversion];
     [self.dataArray addObject:CommaOperator];
+    [self.dataArray addObject:MacrosAbout];
     
     self.myTV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.myTV.delegate = self;
