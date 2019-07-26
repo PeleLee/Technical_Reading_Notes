@@ -64,6 +64,26 @@ static NSString *const sogaCalendar = @"Soga的事项日历";
     else if ([self.titleStr isEqualToString:MacrosAbout]) {
         [self test_macros_1];
     }
+    else if ([self.titleStr isEqualToString:CArray]) {
+        [self test_arrayInOC];
+    }
+}
+
+#pragma mark - OC中C数组的特殊写法
+
+- (void)test_arrayInOC {
+    int count = 3;
+    NSDate *arr[count];
+    arr[0] = [NSDate date];
+    
+    for (int i = 0; i < count; i++) {
+        NSLog(@"arr1 element:%@", arr[i]);
+    }
+    
+    NSDate *arr2[] = {[NSDate date], [NSDate date], [NSDate date]};
+    for (int i = 0; i < sizeof(arr2)/sizeof(arr2[0]); i++) {
+        NSLog(@"arr2 element:%@", arr2[i]);
+    }
 }
 
 #pragma mark - 宏定义中的#运算符

@@ -17,6 +17,7 @@ static NSString *const BOOLOutOfBounds = @"2.2.7_1 BOOL越界";
 static NSString *const TypeMandatoryConversion = @"2.3.2_1 l 强制类型转换";
 static NSString *const CommaOperator = @"2.4.8_1 逗号运算符";
 static NSString *const MacrosAbout = @"3.4.2_1 宏中 #运算符";
+static NSString *const CArray = @"4.1.2_1 OC中C数组的特殊写法";
 
 #define k_SystemVersionValue (([UIDevice currentDevice].systemVersion).doubleValue)
 
