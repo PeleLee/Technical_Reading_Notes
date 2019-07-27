@@ -18,6 +18,8 @@ static NSString *const TypeMandatoryConversion = @"2.3.2_1 l 强制类型转换"
 static NSString *const CommaOperator = @"2.4.8_1 逗号运算符";
 static NSString *const MacrosAbout = @"3.4.2_1 宏中 #运算符";
 static NSString *const CArray = @"4.1.2_1 OC中C数组的特殊写法";
+static NSString *const Function0 = @"4.2.6 OC函数传递的是值还是指针";
+static NSString *const BlockDef = @"4.3.1 block定义";
 
 #define k_SystemVersionValue (([UIDevice currentDevice].systemVersion).doubleValue)
 

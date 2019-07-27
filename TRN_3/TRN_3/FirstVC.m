@@ -67,6 +67,49 @@ static NSString *const sogaCalendar = @"Soga的事项日历";
     else if ([self.titleStr isEqualToString:CArray]) {
         [self test_arrayInOC];
     }
+    else if ([self.titleStr isEqualToString:Function0]) {
+        [self test_function];
+    }
+    else if ([self.titleStr isEqualToString:BlockDef]) {
+        [self test_blockDef];
+    }
+}
+
+#pragma mark - Block定义
+
+- (void)test_blockDef {
+    // 无参无返回值
+    void (^printStr)(void) = ^(void) {
+        NSLog(@"Block定义");
+    };
+    printStr();
+    
+    // 有参有返回值
+    double (^hypot)(double, double) = ^(double num1, double num2) {
+        return sqrt(num1*num1 + num2*num2);
+    };
+    
+    NSLog(@"%g", hypot(3, 4));
+    
+    // 有参无返回值
+    void (^printBlock)(NSString *);
+    printBlock = ^(NSString *info) {
+        NSLog(@"info参数为: %@", info);
+    };
+    printBlock(@"iOS");
+}
+
+#pragma mark - OC函数传递的是值还是指针
+
+- (void)test_function {
+    NSArray *array = @[@0,@1,@2];
+    NSLog(@"%@", array);
+    [self changeValueTest:array];
+    NSLog(@"%@", array);
+}
+
+- (void)changeValueTest:(NSArray *)array {
+    array = @[@3,@4,@5];
 }
 
 #pragma mark - OC中C数组的特殊写法
